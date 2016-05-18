@@ -15,7 +15,9 @@ define([], function () {
     });
 
     $scope.compare =  function(){
-      $location.path('/repos/'+$scope.currentRelease+'/'+$scope.previousRelease+'/'+$scope.latestRelease);
+      if($scope.previousRelease && $scope.latestRelease){
+        $location.path('/repos/'+$scope.currentRelease+'/'+$scope.previousRelease+'/'+$scope.latestRelease);
+      }
     };
 
     $scope.$watch('currentRelease', function(selectedRelease){

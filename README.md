@@ -1,7 +1,6 @@
 # spec-diff-ui
 
-This project is generated with [yo angular-require generator](https://github.com/aaronallport/generator-angular-require)
-version 3.5.0.
+This project is hosted [here](http://spiff.cfapps.io/)
 
 ## Development & building
 

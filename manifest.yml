@@ -1,0 +1,7 @@
+---
+applications:
+- name: spiff-ui
+  buildpack: staticfile_buildpack
+  memory: 64M
+  host: spiff
+  path: dist

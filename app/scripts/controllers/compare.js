@@ -8,6 +8,19 @@ define(['angular','js-yaml'], function (angular, jsyaml) {
     var latestRelease = $routeParams.latestRelease;
     var previousRelease = $routeParams.previousRelease;
     var latestSpecDoc,previousSpecDoc;
+    $scope.view = {
+      newspec : true,
+      removedSpec: true,
+      modifiedSpec: true,
+    };
+
+    $scope.toggleView = function(data){
+      $scope.view[data] = !$scope.view[data];
+    };
+
+    $scope.getLength = function(obj) {
+      return Object.keys(obj).length;
+    };
 
     $scope.newSpecs = {};
     $scope.deletedSpecs = {};
@@ -31,11 +44,16 @@ define(['angular','js-yaml'], function (angular, jsyaml) {
         if(! previousSpecDoc[latestKey]){
           $scope.newSpecs[latestKey] = latestSpecDoc[latestKey];
         }else {
-          if(previousSpecDoc[latestKey]['default'] != latestSpecDoc[latestKey]['default']){
+          var previousDefault = previousSpecDoc[latestKey]['default'],
+              latestDefault = latestSpecDoc[latestKey]['default'];
+          if(JSON.stringify(previousDefault) !== JSON.stringify(latestDefault)){
+            if(!previousDefault && !latestDefault){
+              return;
+            }
             $scope.modifiedSpecs[latestKey] = {
               previousSpec: previousSpecDoc[latestKey],
               latestSpec: latestSpecDoc[latestKey]
-            }
+            };
           }
         }
       });

@@ -29,11 +29,15 @@ define(['angular','js-yaml'], function (angular, jsyaml) {
     GithubAPIService.GetSpec(release, latestRelease).then(function(response){
       latestSpecDoc = jsyaml.load(response.data, { schema: jsyaml.JSON_SCHEMA });
       compareSpecs();
+    }, function(error){
+      alert('Error getting Spec for '+latestRelease+' : '+ error.data)
     });
 
     GithubAPIService.GetSpec(release, previousRelease).then(function(response){
       previousSpecDoc = jsyaml.load(response.data, { schema: jsyaml.JSON_SCHEMA });
       compareSpecs();
+    }, function(error){
+      alert('Error getting Spec for '+previousRelease+' : '+ error.data)
     });
 
     function compareSpecs(){

@@ -1,5 +1,5 @@
 /*jshint unused: vars */
-define(['angular', 'controllers/main', 'controllers/about']/*deps*/, function (angular, MainCtrl, AboutCtrl)/*invoke*/ {
+define(['angular', 'controllers/main', 'services/main']/*deps*/, function (angular)/*invoke*/ {
   'use strict';
 
   /**
@@ -11,23 +11,25 @@ define(['angular', 'controllers/main', 'controllers/about']/*deps*/, function (a
    * Main module of the application.
    */
   return angular
-    .module('specDiffUiApp', ['specDiffUiApp.controllers.MainCtrl',
-'specDiffUiApp.controllers.AboutCtrl',
-/*angJSDeps*/ngResource,ngRoute,ngAnimate,ngTouch])
+    .module('specDiffUiApp', [
+      'specDiffUiApp.controllers',
+      'specDiffUiApp.services',
+      'ngResource',
+      'ngRoute',
+      'ngAnimate'
+    ])
     .config(function ($routeProvider) {
       $routeProvider
-        .when('/', {
-          templateUrl: 'views/main.html',
-          controller: 'MainCtrl',
-          controllerAs: 'main'
+        .when('/repos', {
+          templateUrl: 'views/repos.html',
+          controller: 'ReposCtrl'
         })
-        .when('/about', {
-          templateUrl: 'views/about.html',
-          controller: 'AboutCtrl',
-          controllerAs: 'about'
+        .when('/repos/:release/:previousRelease/:latestRelease', {
+          templateUrl: 'views/compare.html',
+          controller: 'CompareController'
         })
         .otherwise({
-          redirectTo: '/'
+          redirectTo: '/repos'
         });
     });
 });

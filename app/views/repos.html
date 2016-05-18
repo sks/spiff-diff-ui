@@ -1,0 +1,40 @@
+<form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-5 control-label">Release</label>
+    <div class="col-sm-5">
+      <select class="form-control text-center" ng-model="currentRelease">
+        <option ng-repeat="release in releases"
+               value="{{release}}">
+         {{release}}
+       </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-5 control-label">Previous Release</label>
+    <div class="col-sm-5">
+      <select class="form-control text-center" ng-model="previousRelease">
+        <option ng-repeat="(version, specfile)  in versions"
+               value="{{version}}">
+         {{version}}
+       </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-5 control-label">Latest Release</label>
+    <div class="col-sm-5">
+      <select class="form-control text-center" ng-model="latestRelease">
+        <option ng-repeat="(version, specfile)  in versions"
+               value="{{version}}">
+         {{version}}
+       </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button ng-click="compare()" type="submit" class="btn btn-primary">Compare</button>
+    </div>
+  </div>
+</form>

@@ -13,8 +13,14 @@ requirejs.config({
     baseUrl: '/base/app/scripts',
 
     paths: {
-
-    },
+    angular: '../../bower_components/angular/angular',
+    'angular-animate': '../../bower_components/angular-animate/angular-animate',
+    'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
+    'angular-resource': '../../bower_components/angular-resource/angular-resource',
+    'angular-route': '../../bower_components/angular-route/angular-route',
+    bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap',
+    'js-yaml': '../../bower_components/js-yaml/dist/js-yaml'
+  },
 
     shim: {
         'angular' : {'exports' : 'angular'},

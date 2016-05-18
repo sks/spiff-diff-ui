@@ -1,0 +1,81 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    New Specs
+  </div>
+  <div class="panel-body table-responsive">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(key, value) in newSpecs">
+          <td>
+            {{key}}
+          </td>
+          <td>
+            {{value.default}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Deleted Specs
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(key, value) in deletedSpecs">
+          <td>
+            {{key}}
+          </td>
+          <td>
+            {{value.default}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Modified Specs
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Previous Default</th>
+          <th>Latest Default</th>
+          <th>Previous Description</th>
+          <th>Latest Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(key, value) in modifiedSpecs">
+          <td>
+            {{key}}
+          </td>
+          <td>
+            {{value.previousSpec.default}}
+          </td>
+          <td>
+            {{value.latestSpec.default}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

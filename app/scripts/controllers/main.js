@@ -1,4 +1,9 @@
-define(['angular'], function (angular) {
+define([
+  'angular',
+  './repos',
+  './compare',
+  '../services/main'
+], function (angular, ReposController, CompareController) {
   'use strict';
 
   /**
@@ -8,12 +13,8 @@ define(['angular'], function (angular) {
    * # MainCtrl
    * Controller of the specDiffUiApp
    */
-  angular.module('specDiffUiApp.controllers.MainCtrl', [])
-    .controller('MainCtrl', function () {
-      this.awesomeThings = [
-        'HTML5 Boilerplate',
-        'AngularJS',
-        'Karma'
-      ];
-    });
+   angular.module('specDiffUiApp.controllers', [
+     'specDiffUiApp.services'
+   ]).controller('ReposCtrl', ReposController)
+   .controller('CompareController', CompareController);
 });

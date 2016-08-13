@@ -1,7 +1,8 @@
 ---
 applications:
-- name: spiff-ui
+- name: spectacle
   buildpack: staticfile_buildpack
   memory: 64M
-  host: spiff
+  disk: 128M
+  host: spectacle
   path: dist

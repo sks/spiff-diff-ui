@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: {{ .Values.helm_workload_38161df2b6c5539287952168441d87e5.kind }}
+metadata:
+  name: {{ .Values.helm_workload_38161df2b6c5539287952168441d87e5.name }}
+  labels: 
+    {{- with .Values.helm_workload_38161df2b6c5539287952168441d87e5.labels }}
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+spec:
+  replicas: {{ .Values.helm_workload_38161df2b6c5539287952168441d87e5.replicas }}
+  
+  selector:
+    matchLabels:
+     {{- with .Values.helm_workload_38161df2b6c5539287952168441d87e5.labels }}
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+  template:
+    metadata:
+      labels:
+        {{- with .Values.helm_workload_38161df2b6c5539287952168441d87e5.labels }}
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    spec:
+      {{- if .Values.helm_workload_38161df2b6c5539287952168441d87e5.service_account }}
+      serviceAccountName: {{ .Values.helm_workload_38161df2b6c5539287952168441d87e5.service_account }}
+      {{- end }}
+      imagePullSecrets:
+        - name: {{ .Values.helm_workload_38161df2b6c5539287952168441d87e5.image_pull_secret }}
+      volumes:
+        {{- range .Values.helm_workload_38161df2b6c5539287952168441d87e5.volumes }}
+        - name: {{ .name }}
+          {{- if .secret  }}
+          secret:
+            secretName: {{ .secret }}
+          {{ else if .configmap }}
+          configMap:
+            name: {{ .configmap }}
+          {{- end }}
+        {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.helm_workload_38161df2b6c5539287952168441d87e5.image }}:{{ .Values.helm_workload_38161df2b6c5539287952168441d87e5.image_tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.helm_workload_38161df2b6c5539287952168441d87e5.image_pull_policy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.helm_workload_38161df2b6c5539287952168441d87e5.port }}
+              protocol: {{ .Values.helm_workload_38161df2b6c5539287952168441d87e5.protocol }}
+          envFrom:
+            {{- range .Values.helm_workload_38161df2b6c5539287952168441d87e5.env_from_secret }}
+            - secretRef:
+                name: {{ . }}
+            {{- end }}
+            {{- range .Values.helm_workload_38161df2b6c5539287952168441d87e5.env_from_config }}
+            - configMapRef:
+                name: {{ . }}
+            {{- end }}
+          volumeMounts:
+            {{- range .Values.helm_workload_38161df2b6c5539287952168441d87e5.volume_mounts }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              subPath: {{ .subPath }}
+              readOnly: {{ .readOnly }}
+            {{- end }}
+          env:
+          {{- with .Values.helm_workload_38161df2b6c5539287952168441d87e5.env }}
+            {{ range $key, $value := . }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{ end }}
+          {{- end }}
+
+          - name: POSTGRES_HOST
+            value: {{.Release.Name}}-{{ .Values.postgresqlAlias }}.default.svc.cluster.local
+          - name: POSTGRES_PORT
+            value: "5432"
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+            secretKeyRef:
+              name: {{.Release.Name}}-{{ .Values.postgresqlAlias }}
+              key: postgres-password
+          - name: POSTGRES_NAME
+            value: postgres

@@ -1,0 +1,11 @@
+apiVersion: v2
+appVersion: 1.0.0
+dependencies:
+- alias: postgresql-237a20ba78874cf7b3412a14394fdac9
+  name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: ~13.4.3
+description: Generated helm chart created for service "DogeAPI" with appcd
+name: DogeAPI
+type: application
+version: 0.1.0

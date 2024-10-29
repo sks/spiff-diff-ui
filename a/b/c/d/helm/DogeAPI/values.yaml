@@ -1,0 +1,53 @@
+helm_hpa_e2a61b97076d54a6b4071fc87f59491b:
+    enabled: true
+    max_replicas: 2
+    min_replicas: 1
+    name: dogeapi
+    target_cpu_utilization_percentage: 50
+    target_memory_utilization_percentage: 50
+    workload_kind: ${module.appcd_38161df2-b6c5-5392-8795-2168441d87e5.kind}
+    workload_name: ${module.appcd_38161df2-b6c5-5392-8795-2168441d87e5.name}
+helm_ingress_9e545d1f7b26500592f1888cd8c673df:
+    annotations:
+        kubernetes.io/ingress.allow-http: "false"
+    class_name: dogeapi
+    default_backend_name: ${module.appcd_3a9c1a49-85bf-58c4-9f0b-ccc59723145a.name}
+    default_backend_port: ${module.appcd_3a9c1a49-85bf-58c4-9f0b-ccc59723145a.port}
+    labels:
+        service: myapp
+    name: dogeapi
+    rules: []
+    tls: ""
+helm_service_3a9c1a4985bf58c49f0bccc59723145a:
+    name: dogeapi
+    port: 8080
+    protocol: TCP
+    selector_labels: ${module.appcd_38161df2-b6c5-5392-8795-2168441d87e5.labels}
+    target_port: ${module.appcd_38161df2-b6c5-5392-8795-2168441d87e5.port}
+    type: ClusterIP
+helm_service_account_adea17425a255a26a90be0de92cf3bc7:
+    annotations: {}
+    automount: false
+    labels: {}
+    name: dogeapi
+helm_workload_38161df2b6c5539287952168441d87e5:
+    env:
+        ACCESS_LOG: ""
+        ERROR_LOG: ""
+    env_from_config: []
+    env_from_secret: []
+    image: ""
+    image_pull_policy: Always
+    image_pull_secret: null
+    image_tag: ""
+    kind: Deployment
+    labels:
+        service: myapp
+    name: dogeapi
+    port: 8080
+    protocol: TCP
+    replicas: 1
+    service_account: ${module.appcd_adea1742-5a25-5a26-a90b-e0de92cf3bc7.name}
+    volume_mounts: []
+    volumes: []
+postgresqlAlias: postgresql-237a20ba78874cf7b3412a14394fdac9
